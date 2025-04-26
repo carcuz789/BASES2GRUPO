@@ -1,0 +1,78 @@
+services:
+  postgres-primary:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=securepassword
+      - POSTGRES_DB=postgres
+      - WALE_FILE_PREFIX=/backups
+      - WALG_COMPRESSION_METHOD=lz4
+      - PGHOST=127.0.0.1
+      - PGPORT=5432
+      - PGUSER=admin
+      - PGDATABASE=postgres
+    volumes:
+      - C:/FASE2BD2/data/node1:/var/lib/postgresql/data
+      - C:/FASE2BD2/postgresql.conf:/etc/postgresql/postgresql.conf
+      - C:/FASE2BD2/pg_hba.conf:/etc/postgresql/pg_hba.conf
+      - C:/FASE2BD2/backups:/backups
+      - C:/FASE2BD2/backup.sh:/usr/local/bin/backup.sh
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
+    networks:
+      - pg-network
+
+  postgres-replica1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=securepassword
+      - POSTGRES_DB=postgres
+      - WALE_FILE_PREFIX=/backups
+      - WALG_COMPRESSION_METHOD=lz4
+      - PGHOST=127.0.0.1
+      - PGPORT=5432
+      - PGUSER=admin
+      - PGDATABASE=postgres
+    volumes:
+      - C:/FASE2BD2/data/node2:/var/lib/postgresql/data
+      - C:/FASE2BD2/backups:/backups
+    depends_on:
+      - postgres-primary
+    networks:
+      - pg-network
+
+  postgres-replica2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=securepassword
+      - POSTGRES_DB=postgres
+      - WALE_FILE_PREFIX=/backups
+      - WALG_COMPRESSION_METHOD=lz4
+      - PGHOST=127.0.0.1
+      - PGPORT=5432
+      - PGUSER=admin
+      - PGDATABASE=postgres
+    volumes:
+      - C:/FASE2BD2/data/node3:/var/lib/postgresql/data
+      - C:/FASE2BD2/backups:/backups
+    depends_on:
+      - postgres-primary
+    networks:
+      - pg-network
+
+networks:
+  pg-network:
+    driver: bridge

@@ -1,0 +1,1 @@
+{"start_time":"2025-04-25T17:52:07.398339Z","finish_time":"2025-04-25T17:52:15.486523Z","date_fmt":"%Y-%m-%dT%H:%M:%S.%fZ","hostname":"ebdae7d758d2","data_dir":"/var/lib/postgresql/data","pg_version":160008,"start_lsn":419430440,"finish_lsn":419430656,"is_permanent":false,"system_identifier":7496757345964544038,"uncompressed_size":23406726,"compressed_size":4379675}

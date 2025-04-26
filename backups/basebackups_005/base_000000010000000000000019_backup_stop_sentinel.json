@@ -1,0 +1,1 @@
+{"LSN":419430440,"PgVersion":160008,"FinishLSN":419430656,"SystemIdentifier":7496757345964544038,"UncompressedSize":23406726,"CompressedSize":4379675,"Spec":null,"Version":2,"StartTime":"2025-04-25T17:52:07.398339Z","FinishTime":"2025-04-25T17:52:15.486523Z","DateFmt":"%Y-%m-%dT%H:%M:%S.%fZ","Hostname":"ebdae7d758d2","DataDir":"/var/lib/postgresql/data","IsPermanent":false}
