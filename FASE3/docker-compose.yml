@@ -4,13 +4,17 @@ services:
     image: redis:7.0
     ports:
       - "6379:6379"
-    volumes:
-      - redis-data:/data
+    deploy:
+      replicas: 1
+    networks:
+      - app-network
+
+  redis_worker:
+    image: redis:7.0
     networks:
       - app-network
     deploy:
-      replicas: 1  # Scale by increasing replicas
-
+      replicas: 2
   mongodb:
     image: mongo:6.0
     ports:
@@ -19,7 +23,7 @@ services:
       - mongo-data:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=your_password
+      - MONGO_INITDB_ROOT_PASSWORD=1234
     networks:
       - app-network
 
